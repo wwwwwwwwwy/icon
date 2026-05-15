@@ -13,6 +13,14 @@ bun run docs:dev
 bun run docs:build
 ```
 
+## Docs Site
+
+GitHub Pages:
+
+```txt
+https://wwwwwwwwwy.github.io/icon/
+```
+
 ## Publish
 
 ```bash
