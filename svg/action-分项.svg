@@ -1,0 +1,8 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="17.9981" y="3.00099" width="17.9995" height="3.27264" rx="0.976355" fill="var(--mi-icon-secondary)"/>
+<rect x="18.0001" y="10.5005" width="17.9995" height="3.27264" rx="0.976355" fill="currentColor"/>
+<rect x="17.9981" y="22.4996" width="17.9995" height="3.27264" rx="0.976355" fill="var(--mi-icon-secondary)"/>
+<rect x="17.9981" y="29.9942" width="17.9995" height="3.27264" rx="0.976355" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.3423 0H3.27264C1.46521 0 0 1.46521 0 3.27264V13.3423C0 15.1497 1.46521 16.6149 3.27264 16.6149H13.3423C15.1497 16.6149 16.615 15.1497 16.615 13.3423V3.27264C16.615 1.46521 15.1497 0 13.3423 0ZM3.27006 13.3427V3.27301H13.3397V13.3427H3.27006Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.3423 19.3832H3.27264C1.46521 19.3832 0 20.8484 0 22.6559V32.7255C0 34.5329 1.46521 35.9982 3.27264 35.9982H13.3423C15.1497 35.9982 16.615 34.5329 16.615 32.7255V22.6559C16.615 20.8484 15.1497 19.3832 13.3423 19.3832ZM3.27006 32.7264V22.6567H13.3397V32.7264H3.27006Z" fill="currentColor"/>
+</svg>

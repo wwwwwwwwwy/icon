@@ -1,0 +1,6 @@
+<svg width="36" height="30" viewBox="0 0 36 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect y="24.9536" width="3.27272" height="36" rx="1.62726" transform="rotate(-90 0 24.9536)" fill="currentColor"/>
+<rect y="8.38193" width="3.27272" height="36" rx="1.62726" transform="rotate(-90 0 8.38193)" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.6359 11.4544C28.6359 12.3581 27.9033 13.0907 26.9995 13.0907C26.0958 13.0907 25.3632 12.3581 25.3632 11.4544V1.63621C25.3632 0.732474 26.0958 -0.000150565 26.9995 -0.000150565C27.9033 -0.000150565 28.6359 0.732474 28.6359 1.63621V11.4544Z" fill="var(--mi-icon-secondary)"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.99732 27.8164C8.99732 28.7201 8.2647 29.4528 7.36096 29.4528C6.45722 29.4528 5.7246 28.7201 5.7246 27.8164L5.7246 17.9982C5.7246 17.0945 6.45722 16.3619 7.36096 16.3619C8.2647 16.3619 8.99732 17.0945 8.99732 17.9982L8.99732 27.8164Z" fill="var(--mi-icon-secondary)"/>
+</svg>

@@ -1,0 +1,9 @@
+<svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.68 0H2.73465C1.97904 0 1.36649 0.612549 1.36649 1.36817V24.8349C1.36649 25.5906 1.97904 26.2031 2.73465 26.2031H13.68C14.4356 26.2031 15.0481 25.5906 15.0481 24.8349V1.36817C15.0481 0.612549 14.4356 0 13.68 0ZM4.65047 22.9164V3.28047H11.7649V22.9164H4.65047Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M30.1019 0H19.1565C18.4009 0 17.7884 0.612549 17.7884 1.36817V24.8349C17.7884 25.5906 18.4009 26.2031 19.1565 26.2031H30.1019C30.8575 26.2031 31.47 25.5906 31.47 24.8349V1.36817C31.47 0.612549 30.8575 0 30.1019 0ZM28.1868 22.9164H21.0724V3.28047H28.1868V22.9164Z" fill="currentColor"/>
+<rect y="31.7162" width="32.836" height="3.2836" rx="0.96024" fill="var(--mi-icon-secondary)"/>
+<rect x="6.83845" y="26.2022" width="3.2836" height="5.51644" fill="currentColor"/>
+<rect x="22.9858" y="26.2022" width="3.2836" height="5.51644" fill="currentColor"/>
+<ellipse cx="8.20661" cy="20.6888" rx="1.36817" ry="1.37911" fill="var(--mi-icon-secondary)"/>
+<ellipse cx="24.6265" cy="20.6888" rx="1.36817" ry="1.37911" fill="var(--mi-icon-secondary)"/>
+</svg>
