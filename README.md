@@ -39,6 +39,35 @@ This bumps all icon packages by one patch version, builds and verifies the packa
 - `@meri-design/icon-react`
 - `@meri-design/icon-vue`
 
+## GitHub Automation
+
+The repository deploys the docs site to GitHub Pages on every push to `main`.
+
+The npm publish workflow runs on pushes to `main`, but only publishes when the
+versions in all package manifests change:
+
+- `packages/core/package.json`
+- `packages/react/package.json`
+- `packages/vue/package.json`
+
+Before using the npm workflow, add a GitHub repository secret:
+
+```bash
+gh secret set NPM_TOKEN
+```
+
+Use an npm automation token so CI can publish without an interactive OTP prompt.
+
+To release a new package version locally:
+
+```bash
+bun run version:packages
+bun run verify
+git add packages/core/package.json packages/react/package.json packages/vue/package.json
+git commit -m "Release icon packages"
+git push origin main
+```
+
 ## Source
 
 把 SVG 放入 `svg/`。文件名会被解析为：

@@ -1,0 +1,122 @@
+name: Publish packages to npm
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - packages/core/package.json
+      - packages/react/package.json
+      - packages/vue/package.json
+      - packages/**/src/**
+      - scripts/**
+      - package.json
+      - bun.lock
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Check package versions
+        id: versions
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          current_core="$(node -p "require('./packages/core/package.json').version")"
+          current_react="$(node -p "require('./packages/react/package.json').version")"
+          current_vue="$(node -p "require('./packages/vue/package.json').version")"
+
+          if [[ "$current_core" != "$current_react" || "$current_core" != "$current_vue" ]]; then
+            echo "Package versions must match: core=$current_core react=$current_react vue=$current_vue" >&2
+            exit 1
+          fi
+
+          previous_ref="${{ github.event.before }}"
+          if [[ -z "$previous_ref" || "$previous_ref" =~ ^0+$ ]]; then
+            version_changed=true
+          else
+            previous_core="$(git show "$previous_ref:packages/core/package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version" 2>/dev/null || true)"
+            previous_react="$(git show "$previous_ref:packages/react/package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version" 2>/dev/null || true)"
+            previous_vue="$(git show "$previous_ref:packages/vue/package.json" | node -p "JSON.parse(require('fs').readFileSync(0, 'utf8')).version" 2>/dev/null || true)"
+
+            if [[ "$current_core" != "$previous_core" || "$current_react" != "$previous_react" || "$current_vue" != "$previous_vue" ]]; then
+              version_changed=true
+            else
+              version_changed=false
+            fi
+          fi
+
+          echo "version=$current_core" >> "$GITHUB_OUTPUT"
+          echo "version_changed=$version_changed" >> "$GITHUB_OUTPUT"
+          echo "Package version: $current_core"
+          echo "Version changed: $version_changed"
+
+      - name: Check npm registry
+        id: registry
+        if: steps.versions.outputs.version_changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          version="${{ steps.versions.outputs.version }}"
+          existing_count=0
+
+          for package_name in @meri-design/icon-core @meri-design/icon-react @meri-design/icon-vue; do
+            if npm view "$package_name@$version" version >/dev/null 2>&1; then
+              echo "$package_name@$version already exists on npm."
+              existing_count=$((existing_count + 1))
+            fi
+          done
+
+          if [[ "$existing_count" -eq 3 ]]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "All packages already exist on npm. Skipping publish."
+          elif [[ "$existing_count" -eq 0 ]]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "No package exists for this version. Publishing."
+          else
+            echo "Only $existing_count of 3 packages already exist for version $version. Refusing partial publish." >&2
+            exit 1
+          fi
+
+      - name: Verify packages
+        if: steps.versions.outputs.version_changed == 'true' && steps.registry.outputs.publish == 'true'
+        run: bun run verify
+
+      - name: Publish packages
+        if: steps.versions.outputs.version_changed == 'true' && steps.registry.outputs.publish == 'true'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: node scripts/publish-icon-packages.mjs
+
+      - name: Skip publish
+        if: steps.versions.outputs.version_changed != 'true' || steps.registry.outputs.publish == 'false'
+        run: echo "No npm publish required for this commit."
