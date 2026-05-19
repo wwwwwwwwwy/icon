@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - .github/workflows/publish-npm.yml
       - packages/core/package.json
       - packages/react/package.json
       - packages/vue/package.json
